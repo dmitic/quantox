@@ -1,0 +1,16 @@
+{
+    "name": "dmiti/quantox",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Dragan Mitic",
+            "email": "dmitic@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": ""
+        }
+    }
+}
