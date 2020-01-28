@@ -24,6 +24,17 @@
       $userModel = new UserModel($this->getDBConnection());
       $user = $userModel->getByEmail($email);
 
+      if (!$user){
+        $_SESSION['poruka'] = ['status' => 'greska', 'msg' =>'Error: User with email address ' . $email . ' is not registered!'];
+        return;
+      }
+
+      if(!password_verify($password, $user->password)){
+        $_SESSION['poruka'] = ['status' => 'greska', 'msg' =>'Error: Incorrect password!'];
+        sleep(1);
+        return;
+      }
+
       $_SESSION['is_logged'] = true;
       $_SESSION['user_id'] = $user->id;
       
