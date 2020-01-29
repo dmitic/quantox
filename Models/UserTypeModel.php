@@ -4,12 +4,8 @@
   use App\DB\DatabaseConnection;
   use \PDO;
 
-  class UserTypeModel {
-    private $db;
-
-    public function __construct(DatabaseConnection $db) {
-      $this->db = $db;
-    }
+  class UserTypeModel extends Model {
+   
     /**
      * Returns all user types
      *
@@ -17,7 +13,7 @@
      */
     public function getAll(): array {
       $query = "SELECT * FROM user_type;";
-      $stmt = $this->db->getConnection()->prepare($query);
+      $stmt = $this->getConnection()->prepare($query);
       $result = $stmt->execute();
 
       $types = [];
@@ -36,7 +32,7 @@
      */
     public function getTypeById(int $id): string {
       $query = "SELECT * FROM user_type;";
-      $stmt = $this->db->getConnection()->prepare($query);
+      $stmt = $this->getConnection()->prepare($query);
       $result = $stmt->execute();
 
       $type = NULL;

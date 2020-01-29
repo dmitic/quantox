@@ -1,24 +1,13 @@
 <?php
   namespace App\Controllers;
 
-  use App\Models\UserModel;
-  use App\DB\DatabaseConnection;
+  use App\Models\UsersModel;
 
   use App\Validators\PasswordValidator;
   use App\Validators\MailValidator;
   
-  class RegisterController {
+  class RegisterController extends Controller{
     
-    private $db;
-    
-    public function __construct(DatabaseConnection &$db) {
-      $this->db = $db;
-    }
-
-    public function &getDBConnection(): DatabaseConnection {
-      return $this->db;
-    }
-
     public function register(){
       $user_type = filter_input(INPUT_POST, 'userType', FILTER_SANITIZE_STRING);
       $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
@@ -31,13 +20,13 @@
       $validated = $mailValidator->validate($email);
       if($validated === true){
         $passValidator = new PasswordValidator($this->getDBConnection());
-        $validated = $passValidator->validate($password, $confirmed_password);
+        $validated = $passValidator->validate_register($password, $confirmed_password);
       }
 
       // Ako prođe validaciju pravi niz sa podacima i snima ih u DB, u suprotnom prikazuje poruku koju su vratili validatori
       if($validated === true){
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-        $userModel = new UserModel($this->getDBConnection());
+        $usersModel = new UsersModel($this->getDBConnection());
         $userArray = [
           'user_type' => $user_type,
           'name' => $name,
@@ -45,7 +34,7 @@
           'passwordhash' => $passwordHash
         ];
 
-        $user = $userModel->store($userArray);
+        $user = $usersModel->store($userArray);
 
         // Ako uspešno snimi redirektuje u dashboard ili search.php zavisno da li je upotrebljen search (nelogovan) ili ne
         if ($user){

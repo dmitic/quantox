@@ -4,13 +4,8 @@
   use App\DB\DatabaseConnection;
   use \PDO;
 
-  class UserModel {
-    private $db;
-
-    public function __construct(DatabaseConnection $db) {
-      $this->db = $db;
-    }
-
+  class UsersModel extends Model {
+ 
     /**
      * GetUser helper function
      *
@@ -20,7 +15,7 @@
      */
     public function getUser(string $field, $val) {
       $query = "SELECT * FROM users WHERE " . $field . " = :str;";
-      $stmt = $this->db->getConnection()->prepare($query);
+      $stmt = $this->getConnection()->prepare($query);
       $result = $stmt->execute(['str' => $val]);
 
       $user = NULL;
@@ -37,7 +32,7 @@
      */
     public function getAll(): array {
       $query = "SELECT * FROM users;";
-      $stmt = $this->db->getConnection()->prepare($query);
+      $stmt = $this->getConnection()->prepare($query);
       $result = $stmt->execute();
 
       $users = [];
@@ -56,7 +51,7 @@
      */
     public function countUsersByType(int $type): int {
       $query = "SELECT * FROM users WHERE user_type = :user_type;";
-      $stmt = $this->db->getConnection()->prepare($query);
+      $stmt = $this->getConnection()->prepare($query);
       $result = $stmt->execute(['user_type' => $type]);
 
       $users = [];
@@ -105,7 +100,7 @@
     public function store(array $userArray) {
       $query = "INSERT INTO users (`user_type`, `name`, `email`, `password`) 
                 VALUES(:user_type, :name, :email, :passwordhash)";
-      $stmt = $this->db->getConnection()->prepare($query);
+      $stmt = $this->getConnection()->prepare($query);
       
       $result =  $stmt->execute([
           'user_type' => $userArray['user_type'], 
@@ -118,6 +113,6 @@
         return false;
       }
 
-      return $this->db->getConnection()->lastInsertId();
+      return $this->getConnection()->lastInsertId();
     }
   }

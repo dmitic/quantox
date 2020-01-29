@@ -1,28 +1,17 @@
 <?php
   namespace App\Controllers;
 
-  use App\Models\UserModel;
-  use App\DB\DatabaseConnection;
+  use App\Models\UsersModel;
 
-  class LoginController {
-
-  private $db;
-    
-    public function __construct(DatabaseConnection &$db) {
-      $this->db = $db;
-    }
-
-    public function &getDBConnection(): DatabaseConnection {
-      return $this->db;
-    }
+  class LoginController extends Controller {
 
     public function login(){
 
       $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
       $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
-      $userModel = new UserModel($this->getDBConnection());
-      $user = $userModel->getByEmail($email);
+      $usersModel = new UsersModel($this->getDBConnection());
+      $user = $usersModel->getByEmail($email);
 
       if (!$user){
         $_SESSION['poruka'] = ['status' => 'greska', 'msg' =>'Error: User with email address ' . $email . ' is not registered!'];

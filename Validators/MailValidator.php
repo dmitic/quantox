@@ -1,7 +1,7 @@
 <?php
   namespace App\Validators;
 
-  use App\Models\UserModel;
+  use App\Models\UsersModel;
   use App\DB\DatabaseConnection;
   
   class MailValidator {
@@ -22,8 +22,8 @@
      * @return void
      */
     public function validate(string $email){
-      $userModel = new UserModel($this->getDBConnection());
-      $user = $userModel->getByEmail($email);
+      $usersModel = new UsersModel($this->getDBConnection());
+      $user = $usersModel->getByEmail($email);
       if ($user){
         return ['status' => 'greska', 'msg' =>'Error: Email address is already taken!'];
       }
