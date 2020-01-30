@@ -7,10 +7,10 @@
     $_SESSION['userType'] = $type;
     header("Location: login.php?str=" . $str . "&userType=" . $type);
   }
-
 ?>
 <?php require_once('includes/navbar.php'); ?>
   <div class="container mt-3">
+  <?php require_once('includes/greska.php'); ?>
     <div class="row">
       <div class="col-md-3">
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque at nihil voluptatum praesentium. Magni quia sed illum ducimus recusandae, reprehenderit optio fugit blanditiis consequatur rem dignissimos necessitatibus magnam! Perspiciatis, illum?

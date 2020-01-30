@@ -20,7 +20,7 @@
 
       if(!password_verify($password, $user->password)){
         $_SESSION['poruka'] = ['status' => 'greska', 'msg' =>'Error: Incorrect password!'];
-        sleep(1);
+        // sleep(1);
         return;
       }
 
