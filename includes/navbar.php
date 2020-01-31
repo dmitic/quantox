@@ -32,7 +32,7 @@
         <button class="btn btn-secondary my-2 my-sm-0 mr-sm-2" type="submit">Search</button>
       </form>
       <?php if(isset($_SESSION['is_logged'])): ?>
-        <form action="logout.php" method="POST">
+        <form action="includes/logout.php" method="POST">
           <button type="submit" name="logout" class="btn btn-primary mx-2 mx-sm-0" >Logout</button>
         </form>
       <?php endif; ?> 

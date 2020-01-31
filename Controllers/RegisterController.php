@@ -47,7 +47,7 @@
             header("Location: dashboard.php");
           }
         } else {
-          $_SESSION['poruka'] = ['status' => 'greska', 'msg' =>'Error: Unknown error, please try again later !'];
+          $_SESSION['poruka'] = ['status' => 'greska', 'msg' =>'Error: Unknown error, please try again later!'];
           return;
         }
       } else {

@@ -45,7 +45,7 @@
       unset($_SESSION['userType']);
       
       ob_clean();
-      header("Location: index.php");
+      header("Location: ../index.php");
       exit;
     }
   }

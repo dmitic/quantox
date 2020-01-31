@@ -25,13 +25,24 @@
         <legend>Registration</legend>
         <div class="form-group">
           <label for="userType">UserType</label>
-          <select class="form-control col-md-2" name="userType">
-            <?php foreach($types as $type): ?>
-              <option value="<?= $type->type_id ?>" 
-                  <?= isset($_POST['userType']) ?  
-                      ($_POST['userType'] == $type->type_id ? 'selected' : '') : ''; ?> ><?= $type->name ?></option>
-            <?php endforeach; ?>
-          </select>
+          <select class='form-control col-md-2' name='userType'>
+          <?php
+              foreach($types as $type)  { 
+                if (strlen($type->type_id) === 1){
+                  echo "<optgroup label='$type->name'>";
+                } else {
+                    echo "<option value=" . $type->type_id . " ";
+                    echo isset($_POST['userType']) ? ($_POST['userType'] === $type->type_id ? 'selected' : '') : ''; 
+                    echo ">";
+                    for($i=1; $i<strlen($type->type_id); $i++) 
+                      echo "&emsp;";
+                      echo $type->name;
+                      echo "</option>";
+                  }
+                } 
+                echo "</optgroup>"; 
+            ?>
+            </select>
         </div>
         <div class="form-group">
           <label for="name">Name</label>

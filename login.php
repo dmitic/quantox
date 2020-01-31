@@ -11,10 +11,7 @@
 
     if(isset($_POST['submit'])){
       $login = new LoginController($dbConnection);
-      $user = $login->login(); 
-      if($user){
-        header("Location: index.php");
-      }
+      $login->login(); 
     }
   ?>
 
