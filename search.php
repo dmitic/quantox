@@ -13,6 +13,7 @@
   require_once('includes/dash_search_incs.php');
   
   $types = $typeModel->getTypesByTypeSearch($typeSearch);
+  $users = $byTypeSearch ? $usersModel->searchByType($str, $byTypeSearch) : $usersModel->searchDefault($str, $typeSearch);
 ?>
 <?php require_once('includes/navbar.php'); ?>
   <div class="container mt-3">
@@ -26,7 +27,7 @@
           <?php foreach($types as $type): ?> 
               <?php if (strlen($type->type_id) === 1): ?>
                 <li>
-                  <strong><?= $type->name ?></strong>
+                  <strong><?= $type->name ?></strong> (<?= count($users); ?>)
                 </li>
               <?php else: ?>
                 <li class="uvuci<?= strlen($type->type_id); ?>">
@@ -38,7 +39,7 @@
       </div>
       <div class="col-md-9">
         <?php 
-          $users = $byTypeSearch ? $usersModel->searchByType($str, $byTypeSearch) : $usersModel->searchDefault($str, $typeSearch);
+          // $users = $byTypeSearch ? $usersModel->searchByType($str, $byTypeSearch) : $usersModel->searchDefault($str, $typeSearch);
           require_once('includes/userTable.php'); 
         ?>
         <?php if (empty($users)): ?>
